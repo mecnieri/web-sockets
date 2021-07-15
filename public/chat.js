@@ -1,6 +1,6 @@
 //  Make Connection
 
-let socket = io.connect("8080");
+let socket = io.connect("https://dry-dusk-91899.herokuapp.com/8080");
 
 // Query DOM
 let message = document.getElementById("message"),
