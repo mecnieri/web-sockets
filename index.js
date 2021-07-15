@@ -3,8 +3,8 @@ let socket = require("socket.io");
 
 // App setup
 let app = express();
-let server = app.listen(8080, function() {
-  console.log("listening to requests on port 8080");
+let server = app.listen(3000, function() {
+  console.log("listening to requests on port 3000");
 });
 
 // Static files

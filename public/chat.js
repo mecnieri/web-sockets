@@ -1,6 +1,6 @@
 //  Make Connection
-
-let socket = io.connect("8080");
+const port = "localhost:3000";
+let socket = io.connect(process.env.PORT || port);
 
 // Query DOM
 let message = document.getElementById("message"),
@@ -11,36 +11,36 @@ let message = document.getElementById("message"),
 
 // Emit event
 
-btn.addEventListener("click", function() {
+btn.addEventListener("click", function () {
   socket.emit("chat", {
     handle: handle.value,
-    message: message.value
+    message: message.value,
   });
   message.value = "";
 });
 
-socket.on("chat", function(data) {
+socket.on("chat", function (data) {
   output.innerHTML +=
     "<p><strong>" + data.handle + ":</strong>" + data.message + "</p>";
   feedback.innerHTML = " ";
 });
 
-message.addEventListener("keypress", function() {
+message.addEventListener("keypress", function () {
   socket.emit("typing", handle.value);
 });
 
-socket.on("typing", function(data) {
+socket.on("typing", function (data) {
   feedback.innerHTML = "<p><em>" + data + " is typing a message... </em></p>";
 });
 
-window.addEventListener("click", function() {
+window.addEventListener("click", function () {
   socket.emit("browseridanServerze", {
     sender: handle.value,
     X: event.clientX,
-    Y: event.clientY
+    Y: event.clientY,
   });
 });
 
-socket.on("serveridan-browserebze", function(params) {
+socket.on("serveridan-browserebze", function (params) {
   console.log(params);
 });
