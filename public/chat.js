@@ -1,5 +1,5 @@
 //  Make Connection
-const port = "localhost:3000";
+const port = "3000";
 let socket = io.connect(process.env.PORT || port);
 
 // Query DOM
