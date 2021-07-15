@@ -1,7 +1,9 @@
 //  Make Connection
-const port = "3000";
-let socket = io.connect(process.env.PORT || port);
+// const port = "localhost:3000";
+var HOST = location.origin.replace(/^http/, 'ws')
 
+let socket = io.connect(HOST);
+ 
 // Query DOM
 let message = document.getElementById("message"),
   handle = document.getElementById("handle"),
