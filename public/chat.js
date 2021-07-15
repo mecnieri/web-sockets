@@ -1,6 +1,6 @@
 //  Make Connection
 
-let socket = io.connect("http://localhost:1024");
+let socket = io.connect("8080");
 
 // Query DOM
 let message = document.getElementById("message"),
