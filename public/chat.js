@@ -1,6 +1,6 @@
 //  Make Connection
-// const port = "localhost:3000";
-var HOST = location.origin.replace(/^http/, 'ws')
+ 
+const HOST = location.origin.replace(/^http/, 'ws')
 
 let socket = io.connect(HOST);
  
