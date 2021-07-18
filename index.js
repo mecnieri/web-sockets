@@ -1,5 +1,6 @@
-let express = require("express");
-let socket = require("socket.io");
+import express from "express";
+ import socket from "socket.io";
+
 const port = "3000";
 
 // App setup
@@ -14,18 +15,18 @@ app.use(express.static("public"));
 // Socket setup
 let io = socket(server);
 
-io.on("connection", function (socket) {
+io.on("connection", (socket) => {
   console.log("made socket connection with id of ", socket.id);
 
-  socket.on("chat", function (data) {
+  socket.on("chat", (data) => {
     io.sockets.emit("chat", data);
   });
 
-  socket.on("typing", function (data) {
-    socket.broadcast.emit("typing", data);
-  });
+  // socket.on("typing", (data) => {
+  //   socket.broadcast.emit("typing", data);
+  // });
 
-  socket.on("browseridanServerze", function (params) {
+  socket.on("browseridanServerze", (params) => {
     socket.broadcast.emit("serveridan-browserebze", params);
     // io.sockets.emit("serveridan-browserebze", params);
   });
