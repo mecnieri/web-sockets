@@ -18,14 +18,13 @@ let handle = document.getElementById("handle"),
 btn.addEventListener("click", function () {
   socket.emit("chat", {
     handle: handle.value,
-    message: getTime(),
   });
   // message.value = "";
 });
 
 socket.on("chat", function (data) {
-  output.innerHTML +=
-    "<p><strong>" + data.handle + ":</strong> " + data.message + "</p>";
+  (output.innerHTML += "<p><strong>" + data.handle + ":</strong> " + getTime()),
+    +"</p>";
   feedback.innerHTML = " ";
 });
 
