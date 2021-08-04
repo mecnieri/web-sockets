@@ -1,6 +1,7 @@
 import { getTime } from "./getTime.js";
-//  Make Connection
+const sound = new Audio("sound.mp3");
 
+//  Make Connection
 const HOST = location.origin.replace(/^http/, "ws");
 let socket = io.connect(HOST);
 
@@ -20,6 +21,7 @@ btn.addEventListener("click", () =>
 clear.addEventListener("click", () => socket.emit("clear"));
 
 socket.on("chat", function (data) {
+  sound.play();
   output.innerHTML +=
     "<p><strong>" + data.name + ":</strong> " + getTime() + "</p>";
   feedback.innerHTML = " ";
