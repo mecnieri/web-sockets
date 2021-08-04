@@ -1,30 +1,32 @@
-// const getTime = require("getTime");
 import { getTime } from "./getTime.js";
 //  Make Connection
-console.log(getTime());
-const HOST = location.origin.replace(/^http/, "ws");
 
+const HOST = location.origin.replace(/^http/, "ws");
 let socket = io.connect(HOST);
 
 // Query DOM
 let handle = document.getElementById("handle"),
-  // message = document.getElementById("message"),
   btn = document.getElementById("send"),
   output = document.getElementById("output"),
   feedback = document.getElementById("feedback");
 
 // Emit event
-
-btn.addEventListener("click", function () {
+btn.addEventListener("click", () =>
   socket.emit("chat", {
-    handle: handle.value,
-  });
-  // message.value = "";
-});
+    name: handle.value,
+  })
+);
+
+clear.addEventListener("click", () => socket.emit("clear"));
 
 socket.on("chat", function (data) {
-  (output.innerHTML += "<p><strong>" + data.handle + ":</strong> " + getTime()),
-    +"</p>";
+  output.innerHTML +=
+    "<p><strong>" + data.name + ":</strong> " + getTime() + "</p>";
+  feedback.innerHTML = " ";
+});
+
+socket.on("clear", function () {
+  output.innerHTML = " ";
   feedback.innerHTML = " ";
 });
 
@@ -44,6 +46,6 @@ socket.on("chat", function (data) {
 //   });
 // });
 
-socket.on("serveridan-browserebze", function (params) {
-  console.log(params);
-});
+// socket.on("serveridan-browserebze", function (params) {
+//   console.log(params);
+// });
