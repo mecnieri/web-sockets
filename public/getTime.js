@@ -7,7 +7,6 @@ function addZero(x, n) {
 
 export function getTime() {
   var d = new Date();
-//   var x = document.getElementById("demo");
   var h = addZero(d.getHours(), 2);
   var m = addZero(d.getMinutes(), 2);
   var s = addZero(d.getSeconds(), 2);

@@ -4,17 +4,18 @@ const sound = new Audio("sound.mp3");
 //  Make Connection
 const HOST = location.origin.replace(/^http/, "ws");
 let socket = io.connect(HOST);
+const name = prompt("What is your name?");
 
 // Query DOM
-let handle = document.getElementById("handle"),
-  btn = document.getElementById("send"),
+// let handle = document.getElementById("handle"),
+let btn = document.getElementById("send"),
   output = document.getElementById("output"),
   feedback = document.getElementById("feedback");
 
 // Emit event
 btn.addEventListener("click", () =>
   socket.emit("chat", {
-    name: handle.value,
+    name: name,
   })
 );
 
