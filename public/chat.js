@@ -23,18 +23,12 @@ clear.addEventListener("click", () => socket.emit("clear"));
 
 let first = {};
 
-socket.on("chat", function (data) {
+socket.on("chat", function (data, time) {
   sound.play();
-  if (first.name) {
-    showResult(data.name, timeDifference(Date.now(), first.time));
-  } else {
-    showResult(data.name, getTime());
-    first = { name: data.name, time: Date.now() };
-  }
+  showResult(data.name, time || getTime());
 });
 
 socket.on("clear", function () {
-  first = {};
   output.innerHTML = " ";
   feedback.innerHTML = " ";
 });
@@ -44,20 +38,6 @@ const showResult = (name, time) => {
   feedback.innerHTML = " ";
 };
 
-const timeDifference = (first, second) => {
-  let diff = (first - second).toString();
-  console.log(diff);
-  console.log(diff.length);
-  if (diff.length > 3) {
-    diff =
-      "+" +
-      diff.substring(0, diff.length - 3) +
-      "." +
-      diff.substring(diff.length - 3, diff.length);
-  }
-  console.log(diff);
-  return diff;
-};
 // message.addEventListener("keypress", function () {
 //   socket.emit("typing", handle.value);
 // });

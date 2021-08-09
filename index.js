@@ -17,22 +17,48 @@ let io = socket(server);
 
 let dartymebi = [];
 
+let first = {};
+
 io.on("connection", (socket) => {
   console.log("made socket connection with id of ", socket.id);
 
   socket.on("chat", (obj) => {
     if (!dartymebi.includes(obj.name)) {
       dartymebi.push(obj.name);
-      io.sockets.emit("chat", obj);
+      // io.sockets.emit("chat", obj);
+
+      if (first.name) {
+        io.sockets.emit("chat", obj, timeDifference(Date.now(), first.time));
+        // showResult(data.name, timeDifference(Date.now(), first.time));
+      } else {
+        io.sockets.emit("chat", obj);
+        // showResult(data.name, getTime());
+        first = { name: obj.name, time: Date.now() };
+      }
     }
   });
+
   socket.on("clear", () => {
     console.log("clear");
     dartymebi = [];
     io.sockets.emit("clear");
+    first = {};
   });
 });
 
+const timeDifference = (first, second) => {
+  let diff = (first - second).toString();
+  console.log(diff);
+  console.log(diff.length);
+  if (diff.length > 3) {
+    diff =
+      diff.substring(0, diff.length - 3) +
+      "." +
+      diff.substring(diff.length - 3, diff.length);
+  }
+  console.log(diff);
+  return "+" + diff;
+};
 // socket.on("browseridanServerze", (params) => {
 //   socket.broadcast.emit("serveridan-browserebze", params);
 // });
