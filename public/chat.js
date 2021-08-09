@@ -4,7 +4,7 @@ const sound = new Audio("sound.mp3");
 //  Make Connection
 const HOST = location.origin.replace(/^http/, "ws");
 let socket = io.connect(HOST);
-const name = prompt("What is your name?");
+const name = prompt("შეიყვანე შენი სახელი...");
 
 // Query DOM
 // let handle = document.getElementById("handle"),
