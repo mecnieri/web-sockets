@@ -21,18 +21,43 @@ btn.addEventListener("click", () =>
 
 clear.addEventListener("click", () => socket.emit("clear"));
 
+let first = {};
+
 socket.on("chat", function (data) {
   sound.play();
-  output.innerHTML +=
-    "<p><strong>" + data.name + ":</strong> " + getTime() + "</p>";
-  feedback.innerHTML = " ";
+  if (first.name) {
+    showResult(data.name, timeDifference(Date.now(), first.time));
+  } else {
+    showResult(data.name, getTime());
+    first = { name: data.name, time: Date.now() };
+  }
 });
 
 socket.on("clear", function () {
+  first = {};
   output.innerHTML = " ";
   feedback.innerHTML = " ";
 });
 
+const showResult = (name, time) => {
+  output.innerHTML += "<p><strong>" + name + ":</strong> " + time + "</p>";
+  feedback.innerHTML = " ";
+};
+
+const timeDifference = (first, second) => {
+  let diff = (first - second).toString();
+  console.log(diff);
+  console.log(diff.length);
+  if (diff.length > 3) {
+    diff =
+      "+" +
+      diff.substring(0, diff.length - 3) +
+      "." +
+      diff.substring(diff.length - 3, diff.length);
+  }
+  console.log(diff);
+  return diff;
+};
 // message.addEventListener("keypress", function () {
 //   socket.emit("typing", handle.value);
 // });
